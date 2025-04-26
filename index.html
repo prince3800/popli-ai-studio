@@ -1,61 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Popli AI Studio</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      background-color: #111;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      display: inline-block;
+      margin-top: 30px;
+    }
+    input[type="file"],
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #222;
+      color: #fff;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #ff5c5c;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #ff1c1c;
+    }
+    .checkbox-group {
+      text-align: left;
+      margin: 10px 0;
+    }
+    label {
+      display: block;
+      margin: 5px 0;
+    }
+  </style>
 </head>
 <body>
+  <h1>Popli AI Studio</h1>
   <div class="container">
-    <h1>Popli AI Studio</h1>
+    <h2>Upload Your Dress Image:</h2>
+    <input type="file" id="fileInput"><h2>Enter Prompt (Max 5000 characters):</h2>
+<textarea id="promptInput" maxlength="5000" placeholder="Describe the style, dress details, model posture, etc..."></textarea>
 
-    <form id="upload-form">
+<h2>Select Model Type(s):</h2>
+<div class="checkbox-group">
+  <label><input type="checkbox"> Baby Boy</label>
+  <label><input type="checkbox"> Baby Girl</label>
+  <label><input type="checkbox"> Boy</label>
+  <label><input type="checkbox"> Girl</label>
+  <label><input type="checkbox"> Gents</label>
+  <label><input type="checkbox"> Ladies</label>
+</div>
 
-      <label for="image">Upload Your Dress Image:</label>
-      <input type="file" id="image" name="image" accept="image/*">
+<h2>Background Description:</h2>
+<textarea id="backgroundInput" placeholder="Describe the showroom, background environment..."></textarea>
 
-      <div class="prompt-description">
-        <label for="prompt">Enter Prompt (Max 5000 characters):</label>
-        <textarea id="prompt" name="prompt" maxlength="5000" placeholder="Describe what you want..."></textarea>
-      </div>
+<h2>Number of Images (1-10):</h2>
+<input type="text" id="numberInput" value="1">
 
-      <label>Select Model Type(s):</label><br>
-      <input type="checkbox" id="babyboy" name="modelType" value="Baby Boy">
-      <label for="babyboy">Baby Boy</label>
+<h2>Select Output Type:</h2>
+<select id="outputType">
+  <option value="image">Image</option>
+  <option value="video">Video</option>
+</select>
 
-      <input type="checkbox" id="babygirl" name="modelType" value="Baby Girl">
-      <label for="babygirl">Baby Girl</label>
+<br><br>
+<button>Generate Now</button>
 
-      <input type="checkbox" id="boy" name="modelType" value="Boy">
-      <label for="boy">Boy</label>
-
-      <input type="checkbox" id="girl" name="modelType" value="Girl">
-      <label for="girl">Girl</label>
-
-      <input type="checkbox" id="gents" name="modelType" value="Gents">
-      <label for="gents">Gents</label>
-
-      <input type="checkbox" id="ladies" name="modelType" value="Ladies">
-      <label for="ladies">Ladies</label>
-
-      <div class="background-description">
-        <label for="background">Background Description:</label>
-        <textarea id="background" name="background" placeholder="Describe background..."></textarea>
-      </div>
-
-      <label for="numImages">Number of Images (1-10):</label>
-      <input type="number" id="numImages" name="numImages" min="1" max="10" value="1">
-
-      <label for="outputType">Select Output Type:</label>
-      <select id="outputType" name="outputType">
-        <option value="image">Image</option>
-        <option value="video">Video</option>
-      </select>
-
-      <button type="submit">Generate</button>
-
-    </form>
   </div>
 </body>
 </html>
