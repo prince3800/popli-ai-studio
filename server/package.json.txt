@@ -1,0 +1,15 @@
+{
+  "name": "popli-ai-studio",
+  "version": "1.0.0",
+  "description": "Popli AI Studio Website Backend Server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Prince Arora",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
