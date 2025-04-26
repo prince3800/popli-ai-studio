@@ -1,90 +1,96 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Popli AI Studio</title>
-  <style>
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    .container {
-      background-color: #111;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-      display: inline-block;
-      margin-top: 30px;
-    }
-    input[type="file"],
-    input[type="text"],
-    textarea,
-    select {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      background-color: #222;
-      color: #fff;
-    }
-    button {
-      padding: 10px 20px;
-      border: none;
-      background-color: #ff5c5c;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    button:hover {
-      background-color: #ff1c1c;
-    }
-    .checkbox-group {
-      text-align: left;
-      margin: 10px 0;
-    }
-    label {
-      display: block;
-      margin: 5px 0;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <h1>Popli AI Studio</h1>
-  <div class="container">
-    <h2>Upload Your Dress Image:</h2>
-    <input type="file" id="fileInput"><h2>Enter Prompt (Max 5000 characters):</h2>
-<textarea id="promptInput" maxlength="5000" placeholder="Describe the style, dress details, model posture, etc..."></textarea>
 
-<h2>Select Model Type(s):</h2>
-<div class="checkbox-group">
-  <label><input type="checkbox"> Baby Boy</label>
-  <label><input type="checkbox"> Baby Girl</label>
-  <label><input type="checkbox"> Boy</label>
-  <label><input type="checkbox"> Girl</label>
-  <label><input type="checkbox"> Gents</label>
-  <label><input type="checkbox"> Ladies</label>
-</div>
-
-<h2>Background Description:</h2>
-<textarea id="backgroundInput" placeholder="Describe the showroom, background environment..."></textarea>
-
-<h2>Number of Images (1-10):</h2>
-<input type="text" id="numberInput" value="1">
-
-<h2>Select Output Type:</h2>
-<select id="outputType">
-  <option value="image">Image</option>
-  <option value="video">Video</option>
-</select>
-
-<br><br>
-<button>Generate Now</button>
-
+  <!-- Upload multiple images -->
+  <div class="upload-section">
+    <label for="imageUpload">Upload Images:</label>
+    <input type="file" id="imageUpload" multiple />
   </div>
+
+  <!-- Prompt Description -->
+  <div class="prompt-section">
+    <label for="promptInput">Prompt Description (5000 words max):</label>
+    <textarea id="promptInput" maxlength="5000" rows="8" placeholder="Describe the dress, model style, etc..."></textarea>
+    <div id="promptWordCount">0 / 5000 words</div>
+  </div>
+
+  <!-- Background Description -->
+  <div class="background-section">
+    <label for="backgroundPrompt">Background Description (5000 words max):</label>
+    <textarea id="backgroundPrompt" maxlength="5000" rows="8" placeholder="Describe the background theme, mood, colors..."></textarea>
+    <div id="backgroundWordCount">0 / 5000 words</div>
+  </div>
+
+  <!-- Model type checkboxes -->
+  <div class="model-section">
+    <label>Select Model Type:</label><br>
+    <input type="checkbox" id="babyBoy" name="modelType" value="Baby Boy">
+    <label for="babyBoy">Baby Boy</label><br>
+
+    <input type="checkbox" id="babyGirl" name="modelType" value="Baby Girl">
+    <label for="babyGirl">Baby Girl</label><br>
+
+    <input type="checkbox" id="boy" name="modelType" value="Boy">
+    <label for="boy">Boy</label><br>
+
+    <input type="checkbox" id="girl" name="modelType" value="Girl">
+    <label for="girl">Girl</label><br>
+
+    <input type="checkbox" id="ladies" name="modelType" value="Ladies">
+    <label for="ladies">Ladies</label><br>
+
+    <input type="checkbox" id="gents" name="modelType" value="Gents">
+    <label for="gents">Gents</label><br>
+  </div>
+
+  <!-- Choose Output Type -->
+  <div class="output-section">
+    <label>Select Output:</label><br>
+    <input type="radio" id="imageOutput" name="outputType" value="Image" checked>
+    <label for="imageOutput">Image</label>
+
+    <input type="radio" id="videoOutput" name="outputType" value="Video">
+    <label for="videoOutput">Video</label>
+  </div>
+
+  <!-- Number of Images -->
+  <div class="number-section">
+    <label for="numImages">Number of Images (max 10):</label>
+    <input type="number" id="numImages" name="numImages" min="1" max="10" value="1">
+  </div>
+
+  <button id="generateButton">Generate</button>
+
+  <script src="script.js"></script>
+
+  <script>
+    // Prompt live word counter
+    const promptInput = document.getElementById('promptInput');
+    const promptWordCount = document.getElementById('promptWordCount');
+
+    promptInput.addEventListener('input', () => {
+      const words = promptInput.value.trim().split(/\s+/).filter(Boolean).length;
+      promptWordCount.textContent = `${words} / 5000 words`;
+    });
+
+    // Background prompt live word counter
+    const backgroundInput = document.getElementById('backgroundPrompt');
+    const backgroundWordCount = document.getElementById('backgroundWordCount');
+
+    backgroundInput.addEventListener('input', () => {
+      const words = backgroundInput.value.trim().split(/\s+/).filter(Boolean).length;
+      backgroundWordCount.textContent = `${words} / 5000 words`;
+    });
+  </script>
+
 </body>
 </html>
