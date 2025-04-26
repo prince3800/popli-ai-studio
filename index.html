@@ -1,49 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Popli AI Studio</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Popli AI Studio</h1>
-        <form id="generate-form">
-            <label for="imageUpload">Upload Your Dress Image:</label>
-            <input type="file" id="imageUpload" name="imageUpload" accept="image/*" required>
+<div class="prompt-section">
+  <label for="prompt">Enter your prompt (Max 5000 characters):</label>
+  <textarea id="prompt" maxlength="5000" placeholder="Describe the style, background, and clothing you want..."></textarea>
 
-            <label for="prompt">Enter Prompt (Max 5000 characters):</label>
-            <textarea id="prompt" name="prompt" maxlength="5000" placeholder="Describe what you want..." required></textarea>
-
-            <label>Select Model Type(s):</label>
-            <div class="checkbox-group">
-                <label><input type="checkbox" name="modelType" value="Baby Boy"> Baby Boy</label>
-                <label><input type="checkbox" name="modelType" value="Baby Girl"> Baby Girl</label>
-                <label><input type="checkbox" name="modelType" value="Boy"> Boy</label>
-                <label><input type="checkbox" name="modelType" value="Girl"> Girl</label>
-                <label><input type="checkbox" name="modelType" value="Gents"> Gents</label>
-                <label><input type="checkbox" name="modelType" value="Ladies"> Ladies</label>
-            </div>
-
-            <label for="backgroundPrompt">Background Description:</label>
-            <input type="text" id="backgroundPrompt" name="backgroundPrompt" placeholder="Describe background..." required>
-
-            <label for="numImages">Number of Images (1-10):</label>
-            <input type="number" id="numImages" name="numImages" min="1" max="10" value="1" required>
-
-            <label for="outputType">Select Output Type:</label>
-            <select id="outputType" name="outputType" required>
-                <option value="image">Image</option>
-                <option value="video">Video</option>
-            </select>
-
-            <button type="submit">Generate</button>
-        </form>
-
-        <div id="result"></div>
+  <div class="model-selection">
+    <p>Select Model Type:</p>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="modelType" value="Baby Boy"> Baby Boy</label>
+      <label><input type="checkbox" name="modelType" value="Baby Girl"> Baby Girl</label>
+      <label><input type="checkbox" name="modelType" value="Boy"> Boy</label>
+      <label><input type="checkbox" name="modelType" value="Girl"> Girl</label>
+      <label><input type="checkbox" name="modelType" value="Ladies"> Ladies</label>
+      <label><input type="checkbox" name="modelType" value="Gents"> Gents</label>
     </div>
+  </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+  <div class="generate-options">
+    <p>Choose what to generate:</p>
+    <label><input type="radio" name="generateType" value="Image" checked> Image</label>
+    <label><input type="radio" name="generateType" value="Video"> Video</label>
+  </div>
+
+  <div class="image-count">
+    <label for="imageCount">Number of Images (1-10):</label>
+    <input type="number" id="imageCount" name="imageCount" min="1" max="10" value="1">
+  </div>
+
+  <button id="generateBtn">Generate Now</button>
+</div>
