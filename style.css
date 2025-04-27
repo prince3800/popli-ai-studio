@@ -9,7 +9,7 @@
 /* Body with background image */
 body {
   min-height: 100vh;
-  background: url('images/background.png') no-repeat center center/cover;
+  background: url('background.png') no-repeat center center/cover;
   background-color: #f5f5f5; /* Light fallback color */
   display: flex;
   justify-content: center;
