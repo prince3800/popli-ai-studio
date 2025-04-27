@@ -5,6 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Popli AI Studio</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .textarea-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    textarea {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      resize: vertical;
+    }
+    .word-counter {
+      position: absolute;
+      bottom: 8px;
+      right: 15px;
+      font-size: 12px;
+      color: gray;
+    }
+  </style>
 </head>
 <body>
 
@@ -19,15 +38,19 @@
   <!-- Prompt Description -->
   <div class="prompt-section">
     <label for="promptInput">Prompt Description (5000 words max):</label>
-    <textarea id="promptInput" maxlength="5000" rows="8" placeholder="Describe the dress, model style, etc..."></textarea>
-    <div id="promptWordCount">0 / 5000 words</div>
+    <div class="textarea-wrapper">
+      <textarea id="promptInput" maxlength="5000" rows="10" placeholder="Describe the dress, model style, etc..."></textarea>
+      <div id="promptWordCount" class="word-counter">0 / 5000 words</div>
+    </div>
   </div>
 
   <!-- Background Description -->
   <div class="background-section">
     <label for="backgroundPrompt">Background Description (5000 words max):</label>
-    <textarea id="backgroundPrompt" maxlength="5000" rows="8" placeholder="Describe the background theme, mood, colors..."></textarea>
-    <div id="backgroundWordCount">0 / 5000 words</div>
+    <div class="textarea-wrapper">
+      <textarea id="backgroundPrompt" maxlength="5000" rows="10" placeholder="Describe the background theme, mood, colors..."></textarea>
+      <div id="backgroundWordCount" class="word-counter">0 / 5000 words</div>
+    </div>
   </div>
 
   <!-- Model type checkboxes -->
