@@ -1,87 +1,101 @@
+/* Apply global styles */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    background: url('images/background.png') no-repeat center center/cover;
+    background: url('images/background.png') no-repeat center center fixed;
+    background-size: cover;
+    backdrop-filter: blur(8px);
     min-height: 100vh;
-    background-attachment: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
 }
 
-body::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 0;
-}
-
-.container {
+/* Centered form with glass effect */
+form {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 40px;
     width: 90%;
-    max-width: 800px;
-    background: transparent;
-    padding: 30px;
-    border-radius: 15px;
-    position: relative;
-    z-index: 1;
+    max-width: 600px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
+/* Form heading */
 h1, h2 {
     text-align: center;
-    color: #fff;
+    color: #ffffff;
+    margin-bottom: 20px;
 }
 
+/* Labels */
 label {
     display: block;
-    margin-top: 20px;
-    font-weight: 600;
-    color: #eee;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-weight: 500;
 }
 
-select, input[type="file"], textarea, button {
+/* Inputs and Textareas */
+input[type="text"], 
+input[type="file"], 
+textarea, 
+select {
     width: 100%;
     padding: 12px;
-    margin-top: 8px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-}
-
-textarea {
-    resize: vertical;
-    min-height: 120px;
-}
-
-button {
-    margin-top: 20px;
-    background: #4CAF50;
-    color: white;
-    font-weight: bold;
+    margin-bottom: 20px;
     border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    font-size: 16px;
+    outline: none;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus, 
+input[type="file"]:focus, 
+textarea:focus, 
+select:focus {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px #00ffd5;
+}
+
+/* Buttons */
+button, input[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #00ffd5, #0ab3ff);
+    border: none;
+    border-radius: 12px;
+    color: #000000;
+    font-size: 18px;
+    font-weight: bold;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background 0.4s ease, transform 0.2s ease;
 }
 
-button:hover {
-    background: #45a049;
+button:hover, input[type="submit"]:hover {
+    background: linear-gradient(135deg, #0ab3ff, #00ffd5);
+    transform: scale(1.05);
 }
 
-.hidden {
-    display: none;
-}
-
-.word-count {
+/* Word counter text */
+.word-counter {
     text-align: right;
-    font-size: 14px;
-    margin-top: 4px;
-    color: #ccc;
+    color: #ffffff;
+    font-size: 12px;
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    form {
+        padding: 30px 20px;
+    }
 }
