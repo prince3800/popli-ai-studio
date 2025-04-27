@@ -1,119 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Popli AI Studio</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    .textarea-wrapper {
-      position: relative;
-      margin-bottom: 20px;
-    }
-    textarea {
-      width: 100%;
-      padding: 15px;
-      font-size: 16px;
-      resize: vertical;
-    }
-    .word-counter {
-      position: absolute;
-      bottom: 8px;
-      right: 15px;
-      font-size: 12px;
-      color: gray;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>AI Model Image/Video Generator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="background-color: #0e0e0e; color: white; font-family: 'Poppins', sans-serif;">
 
-  <h1>Popli AI Studio</h1>
+<div class="container">
+    <h1 style="text-align: center;">Popli AI Studio</h1>
 
-  <!-- Upload multiple images -->
-  <div class="upload-section">
-    <label for="imageUpload">Upload Images:</label>
-    <input type="file" id="imageUpload" multiple />
-  </div>
+    <div class="form-section">
+        <label for="imageUpload">Upload Dress Image(s):</label>
+        <input type="file" id="imageUpload" multiple>
 
-  <!-- Prompt Description -->
-  <div class="prompt-section">
-    <label for="promptInput">Prompt Description (5000 words max):</label>
-    <div class="textarea-wrapper">
-      <textarea id="promptInput" maxlength="5000" rows="10" placeholder="Describe the dress, model style, etc..."></textarea>
-      <div id="promptWordCount" class="word-counter">0 / 5000 words</div>
+        <br><br>
+
+        <label for="backgroundDescription">Background Description:</label>
+        <textarea id="backgroundDescription" maxlength="5000" placeholder="Describe background here..."></textarea>
+        <div class="word-count" id="backgroundWordCount">0/5000 words</div>
+
+        <br>
+
+        <label for="prompt">Prompt (Dress Description):</label>
+        <textarea id="prompt" maxlength="5000" placeholder="Describe dress or look you want..."></textarea>
+        <div class="word-count" id="promptWordCount">0/5000 words</div>
+
+        <br>
+
+        <label>Choose Model Types:</label>
+        <div class="checkbox-grid">
+            <label><input type="checkbox" name="modelType" value="Baby Boy"> Baby Boy</label>
+            <label><input type="checkbox" name="modelType" value="Baby Girl"> Baby Girl</label>
+            <label><input type="checkbox" name="modelType" value="Boy"> Boy</label>
+            <label><input type="checkbox" name="modelType" value="Girl"> Girl</label>
+            <label><input type="checkbox" name="modelType" value="Gents"> Gents</label>
+            <label><input type="checkbox" name="modelType" value="Ladies"> Ladies</label>
+        </div>
+
+        <br>
+
+        <label for="numberOfImages">Number of Images to Generate (Max 10):</label>
+        <select id="numberOfImages">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+
+        <br><br>
+
+        <button id="generateButton">Generate</button>
     </div>
-  </div>
+</div>
 
-  <!-- Background Description -->
-  <div class="background-section">
-    <label for="backgroundPrompt">Background Description (5000 words max):</label>
-    <div class="textarea-wrapper">
-      <textarea id="backgroundPrompt" maxlength="5000" rows="10" placeholder="Describe the background theme, mood, colors..."></textarea>
-      <div id="backgroundWordCount" class="word-counter">0 / 5000 words</div>
-    </div>
-  </div>
-
-  <!-- Model type checkboxes -->
-  <div class="model-section">
-    <label>Select Model Type:</label><br>
-    <input type="checkbox" id="babyBoy" name="modelType" value="Baby Boy">
-    <label for="babyBoy">Baby Boy</label><br>
-
-    <input type="checkbox" id="babyGirl" name="modelType" value="Baby Girl">
-    <label for="babyGirl">Baby Girl</label><br>
-
-    <input type="checkbox" id="boy" name="modelType" value="Boy">
-    <label for="boy">Boy</label><br>
-
-    <input type="checkbox" id="girl" name="modelType" value="Girl">
-    <label for="girl">Girl</label><br>
-
-    <input type="checkbox" id="ladies" name="modelType" value="Ladies">
-    <label for="ladies">Ladies</label><br>
-
-    <input type="checkbox" id="gents" name="modelType" value="Gents">
-    <label for="gents">Gents</label><br>
-  </div>
-
-  <!-- Choose Output Type -->
-  <div class="output-section">
-    <label>Select Output:</label><br>
-    <input type="radio" id="imageOutput" name="outputType" value="Image" checked>
-    <label for="imageOutput">Image</label>
-
-    <input type="radio" id="videoOutput" name="outputType" value="Video">
-    <label for="videoOutput">Video</label>
-  </div>
-
-  <!-- Number of Images -->
-  <div class="number-section">
-    <label for="numImages">Number of Images (max 10):</label>
-    <input type="number" id="numImages" name="numImages" min="1" max="10" value="1">
-  </div>
-
-  <button id="generateButton">Generate</button>
-
-  <script src="script.js"></script>
-
-  <script>
-    // Prompt live word counter
-    const promptInput = document.getElementById('promptInput');
-    const promptWordCount = document.getElementById('promptWordCount');
-
-    promptInput.addEventListener('input', () => {
-      const words = promptInput.value.trim().split(/\s+/).filter(Boolean).length;
-      promptWordCount.textContent = `${words} / 5000 words`;
-    });
-
-    // Background prompt live word counter
-    const backgroundInput = document.getElementById('backgroundPrompt');
-    const backgroundWordCount = document.getElementById('backgroundWordCount');
-
-    backgroundInput.addEventListener('input', () => {
-      const words = backgroundInput.value.trim().split(/\s+/).filter(Boolean).length;
-      backgroundWordCount.textContent = `${words} / 5000 words`;
-    });
-  </script>
-
+<script src="script.js"></script>
 </body>
 </html>
