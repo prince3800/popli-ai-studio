@@ -1,203 +1,113 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" 
-        href="style.css">
     <meta charset="UTF-8">
     <title>Image & Video Generator</title>
+    <link href="style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f9f9f9, #e0e0e0);
-            color: #333;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 32px;
-            color: #444;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-        .form-section {
-            margin-bottom: 25px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        select, textarea, input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 15px;
-        }
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-            background: #f5f5f5;
-        }
-        .word-counter {
-            text-align: right;
-            font-size: 12px;
-            margin-top: 5px;
-            color: #777;
-        }
-        .hidden {
-            display: none;
-        }
-        button {
-            background: #4CAF50;
-            color: #fff;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        button:hover {
-            background: #45a049;
-        }
-        .flex-row {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .flex-row > div {
-            flex: 1;
-            min-width: 250px;
-        }
-    </style>
 </head>
 <body>
-
-    <h1>Image & Video Generator Form</h1>
     <div class="container">
-        <div class="form-section">
-            <label for="typeSelect">Select what to generate:</label>
-            <select id="typeSelect" onchange="toggleForm()">
-                <option value="">-- Choose Option --</option>
-                <option value="image">Generate Images</option>
-                <option value="video">Generate Videos</option>
+        <h1>Select Mode</h1>
+        <select id="modeSelector" onchange="toggleForms()">
+            <option value="">-- Select --</option>
+            <option value="image">Generate Images</option>
+            <option value="video">Generate Videos</option>
+        </select>
+
+        <form id="imageForm" class="hidden">
+            <h2>Image Generator</h2>
+            <label>Number of Images:</label>
+            <select name="imageCount">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
             </select>
-        </div>
 
-        <div id="imageForm" class="hidden">
-            <div class="flex-row">
-                <div>
-                    <label for="promptImage">Prompt Description (Max 5000 characters):</label>
-                    <textarea id="promptImage" maxlength="5000" oninput="updateWordCount('promptImage', 'wordCountImage')"></textarea>
-                    <div class="word-counter" id="wordCountImage">0 / 5000 words</div>
-                </div>
-                <div>
-                    <label for="backgroundImage">Background Description (Max 5000 characters):</label>
-                    <textarea id="backgroundImage" maxlength="5000" oninput="updateWordCount('backgroundImage', 'wordCountBgImage')"></textarea>
-                    <div class="word-counter" id="wordCountBgImage">0 / 5000 words</div>
-                </div>
-            </div>
-            <div class="form-section">
-                <label>Upload Images:</label>
-                <input type="file" multiple accept="image/*">
-            </div>
-            <div class="form-section">
-                <label>Number of Images to Generate (Max 10):</label>
-                <select id="numImages">
-                    <option value="">-- Select --</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-            </div>
-            <button>Generate Images</button>
-        </div>
+            <label>Upload Images:</label>
+            <input type="file" name="uploadImages" multiple>
 
-        <div id="videoForm" class="hidden">
-            <div class="flex-row">
-                <div>
-                    <label for="promptVideo">Prompt Description (Max 5000 characters):</label>
-                    <textarea id="promptVideo" maxlength="5000" oninput="updateWordCount('promptVideo', 'wordCountVideo')"></textarea>
-                    <div class="word-counter" id="wordCountVideo">0 / 5000 words</div>
-                </div>
-                <div>
-                    <label for="backgroundVideo">Background Description (Max 5000 characters):</label>
-                    <textarea id="backgroundVideo" maxlength="5000" oninput="updateWordCount('backgroundVideo', 'wordCountBgVideo')"></textarea>
-                    <div class="word-counter" id="wordCountBgVideo">0 / 5000 words</div>
-                </div>
-            </div>
-            <div class="form-section">
-                <label>Upload Images:</label>
-                <input type="file" multiple accept="image/*">
-            </div>
-            <div class="form-section">
-                <label>Number of Images for Video (Max 20):</label>
-                <select id="numVideos">
-                    <option value="">-- Select --</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                    <option value="16">16</option>
-                    <option value="17">17</option>
-                    <option value="18">18</option>
-                    <option value="19">19</option>
-                    <option value="20">20</option>
-                </select>
-            </div>
-            <button>Generate Video</button>
-        </div>
+            <label>Prompt Description (Max 5000 characters):</label>
+            <textarea id="promptTextImage" maxlength="5000" placeholder="Enter prompt..."></textarea>
+            <div class="word-count" id="wordCountPromptImage">0 / 5000</div>
 
+            <label>Background Description (Max 5000 characters):</label>
+            <textarea id="backgroundTextImage" maxlength="5000" placeholder="Enter background description..."></textarea>
+            <div class="word-count" id="wordCountBackgroundImage">0 / 5000</div>
+
+            <button type="submit">Generate Images</button>
+        </form>
+
+        <form id="videoForm" class="hidden">
+            <h2>Video Generator</h2>
+            <label>Number of Images (for video generation):</label>
+            <select name="videoImageCount">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+            </select>
+
+            <label>Upload Images:</label>
+            <input type="file" name="uploadVideoImages" multiple>
+
+            <label>Prompt Description (Max 5000 characters):</label>
+            <textarea id="promptTextVideo" maxlength="5000" placeholder="Enter prompt..."></textarea>
+            <div class="word-count" id="wordCountPromptVideo">0 / 5000</div>
+
+            <label>Background Description (Max 5000 characters):</label>
+            <textarea id="backgroundTextVideo" maxlength="5000" placeholder="Enter background description..."></textarea>
+            <div class="word-count" id="wordCountBackgroundVideo">0 / 5000</div>
+
+            <button type="submit">Generate Video</button>
+        </form>
     </div>
 
     <script>
-        function toggleForm() {
-            const type = document.getElementById('typeSelect').value;
+        function toggleForms() {
+            const mode = document.getElementById('modeSelector').value;
             document.getElementById('imageForm').classList.add('hidden');
             document.getElementById('videoForm').classList.add('hidden');
-
-            if (type === 'image') {
+            if (mode === 'image') {
                 document.getElementById('imageForm').classList.remove('hidden');
-            } else if (type === 'video') {
+            } else if (mode === 'video') {
                 document.getElementById('videoForm').classList.remove('hidden');
             }
         }
 
         function updateWordCount(textareaId, counterId) {
-            const textarea = document.getElementById(textareaId);
-            const counter = document.getElementById(counterId);
-            const words = textarea.value.trim().split(/\s+/).filter(Boolean);
-            counter.textContent = `${words.length} / 5000 words`;
+            const text = document.getElementById(textareaId).value;
+            document.getElementById(counterId).innerText = `${text.length} / 5000`;
         }
-    </script>
 
+        ['promptTextImage', 'backgroundTextImage', 'promptTextVideo', 'backgroundTextVideo'].forEach(id => {
+            const counterId = 'wordCount' + id.replace('Text', '');
+            document.getElementById(id).addEventListener('input', () => updateWordCount(id, counterId));
+        });
+    </script>
 </body>
 </html>
