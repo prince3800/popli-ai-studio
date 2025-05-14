@@ -1,41 +1,27 @@
-const imageUploadPath = 'images/';
-const videoUploadPath = 'videos/';
+document.getElementById("videoForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
 
-// Example: Image upload function
-function uploadImage(file) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const imgElement = document.createElement('img');
-        imgElement.src = e.target.result;
-        document.getElementById('uploaded-images').appendChild(imgElement);
+  const prompt = document.getElementById("prompt").value;
+  const voice = document.getElementById("voice").value;
+  const duration = document.getElementById("duration").value;
 
-        // Save the uploaded image to images/ folder
-        // Note: This needs backend to truly save, frontend cannot actually write to server folders directly
-        console.log(`Image would be saved to ${imageUploadPath}`);
-    };
-    reader.readAsDataURL(file);
-}
+  document.getElementById("status").innerText = "Generating video... Please wait.";
 
-// Example: Video generation function
-function generateVideoFromImages(images) {
-    // Placeholder for video generation logic
-    console.log(`Video would be generated and saved to ${videoUploadPath}`);
-}
+  const response = await fetch("http://localhost:5000/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt, voice, duration })
+  });
 
-// Handling upload input
-document.getElementById('upload-image').addEventListener('change', function(event) {
-    const files = event.target.files;
-    for (let i = 0; i < files.length; i++) {
-        uploadImage(files[i]);
-    }
-});
+  const result = await response.json();
 
-// Example function to simulate video generation button click
-document.getElementById('generate-video').addEventListener('click', function() {
-    const images = document.querySelectorAll('#uploaded-images img');
-    if (images.length > 0) {
-        generateVideoFromImages(images);
-    } else {
-        alert('Please upload images first!');
-    }
+  if (result.videoUrl) {
+    document.getElementById("videoResult").innerHTML = `
+      <video src="${result.videoUrl}" controls width="100%"></video>
+      <a href="${result.videoUrl}" download>Download Video</a>
+    `;
+    document.getElementById("status").innerText = "Video ready!";
+  } else {
+    document.getElementById("status").innerText = "Error generating video.";
+  }
 });
