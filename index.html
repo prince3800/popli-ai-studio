@@ -1,113 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Image & Video Generator</title>
-    <link href="style.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Popli AI Studio</title>
+  <link href="style.css" rel="stylesheet"/>
 </head>
 <body>
-    <div class="container">
-        <h1>Select Mode</h1>
-        <select id="modeSelector" onchange="toggleForms()">
-            <option value="">-- Select --</option>
-            <option value="image">Generate Images</option>
-            <option value="video">Generate Videos</option>
-        </select>
+  <div id="app">
+    <h1>Popli AI Studio</h1>
+    <p>Generate any kind of video with sound, voice, scenes – in Hindi or English</p>
 
-        <form id="imageForm" class="hidden">
-            <h2>Image Generator</h2>
-            <label>Number of Images:</label>
-            <select name="imageCount">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>
+    <form id="videoForm">
+      <textarea id="prompt" placeholder="Enter your scene/story..." rows="4"></textarea>
 
-            <label>Upload Images:</label>
-            <input type="file" name="uploadImages" multiple>
+      <select id="voice">
+        <option value="male-hindi">Male - Hindi</option>
+        <option value="female-hindi">Female - Hindi</option>
+        <option value="male-english">Male - English</option>
+        <option value="female-english">Female - English</option>
+      </select>
 
-            <label>Prompt Description (Max 5000 characters):</label>
-            <textarea id="promptTextImage" maxlength="5000" placeholder="Enter prompt..."></textarea>
-            <div class="word-count" id="wordCountPromptImage">0 / 5000</div>
+      <input type="number" id="duration" placeholder="Duration in minutes (1–30)" min="1" max="30" />
 
-            <label>Background Description (Max 5000 characters):</label>
-            <textarea id="backgroundTextImage" maxlength="5000" placeholder="Enter background description..."></textarea>
-            <div class="word-count" id="wordCountBackgroundImage">0 / 5000</div>
+      <button type="submit">Generate Video</button>
+    </form>
 
-            <button type="submit">Generate Images</button>
-        </form>
+    <div id="status"></div>
+    <div id="videoResult"></div>
+  </div>
 
-        <form id="videoForm" class="hidden">
-            <h2>Video Generator</h2>
-            <label>Number of Images (for video generation):</label>
-            <select name="videoImageCount">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-            </select>
-
-            <label>Upload Images:</label>
-            <input type="file" name="uploadVideoImages" multiple>
-
-            <label>Prompt Description (Max 5000 characters):</label>
-            <textarea id="promptTextVideo" maxlength="5000" placeholder="Enter prompt..."></textarea>
-            <div class="word-count" id="wordCountPromptVideo">0 / 5000</div>
-
-            <label>Background Description (Max 5000 characters):</label>
-            <textarea id="backgroundTextVideo" maxlength="5000" placeholder="Enter background description..."></textarea>
-            <div class="word-count" id="wordCountBackgroundVideo">0 / 5000</div>
-
-            <button type="submit">Generate Video</button>
-        </form>
-    </div>
-
-    <script>
-        function toggleForms() {
-            const mode = document.getElementById('modeSelector').value;
-            document.getElementById('imageForm').classList.add('hidden');
-            document.getElementById('videoForm').classList.add('hidden');
-            if (mode === 'image') {
-                document.getElementById('imageForm').classList.remove('hidden');
-            } else if (mode === 'video') {
-                document.getElementById('videoForm').classList.remove('hidden');
-            }
-        }
-
-        function updateWordCount(textareaId, counterId) {
-            const text = document.getElementById(textareaId).value;
-            document.getElementById(counterId).innerText = `${text.length} / 5000`;
-        }
-
-        ['promptTextImage', 'backgroundTextImage', 'promptTextVideo', 'backgroundTextVideo'].forEach(id => {
-            const counterId = 'wordCount' + id.replace('Text', '');
-            document.getElementById(id).addEventListener('input', () => updateWordCount(id, counterId));
-        });
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
