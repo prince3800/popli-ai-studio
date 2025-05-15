@@ -1,22 +1,21 @@
-import time
+import replicate
 import uuid
 import os
 
-# Simulate AI video generation (replace with actual logic/API calls)
+# Get your Replicate API key from https://replicate.com/account/api-tokens
+os.environ["REPLICATE_API_TOKEN"] = "your_replicate_api_key_here"
+
 def generate_ai_video(prompt, voice_type="female", add_music=True, language="english"):
-    # Simulate processing
-    print(f"Generating video for: {prompt}")
-    time.sleep(2)  # Simulate wait time
+    output = replicate.run(
+        "lucataco/text-to-video:latest",  # You can change to any Replicate model
+        input={
+            "prompt": prompt,
+            "num_frames": 24,
+            "fps": 8,
+            "width": 512,
+            "height": 512,
+        }
+    )
 
-    # Simulate video URL generation
-    video_id = str(uuid.uuid4())
-    video_filename = f"{video_id}.mp4"
-    video_path = f"/static/{video_filename}"
-
-    # Mock: create empty video file to simulate response
-    os.makedirs("static", exist_ok=True)
-    with open(f"static/{video_filename}", "wb") as f:
-        f.write(b"")  # Empty file for now (replace with actual video content)
-
-    # Return the simulated video path
-    return video_path
+    video_url = output  # Replicate returns a video URL
+    return video_url
