@@ -1,21 +1,34 @@
-import replicate
-import uuid
 import os
+import replicate
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 
-# Get your Replicate API key from https://replicate.com/account/api-tokens
-os.environ["REPLICATE_API_TOKEN"] = "your_replicate_api_key_here"
+# Set your Replicate API token
+os.environ["REPLICATE_API_TOKEN"] = "r8_YOUR_ACTUAL_TOKEN_HERE"
 
-def generate_ai_video(prompt, voice_type="female", add_music=True, language="english"):
-    output = replicate.run(
-        "lucataco/text-to-video:latest",  # You can change to any Replicate model
-        input={
-            "prompt": prompt,
-            "num_frames": 24,
-            "fps": 8,
-            "width": 512,
-            "height": 512,
-        }
-    )
+app = Flask(__name__)
+CORS(app)
 
-    video_url = output  # Replicate returns a video URL
-    return video_url
+@app.route('/generate-video', methods=['POST'])
+def generate_video():
+    data = request.json
+    input_image_url = data.get("image_url")
+    prompt = data.get("prompt", "cinematic cartoon style")
+
+    try:
+        output = replicate.run(
+            "cjwbw/video-to-video:1c1ec3",
+            input={
+                "image": input_image_url,
+                "prompt": prompt,
+                "num_frames": 16,
+                "fps": 6
+            }
+        )
+        return jsonify({"status": "success", "video_url": output})
+    
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
